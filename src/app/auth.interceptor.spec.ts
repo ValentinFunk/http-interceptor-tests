@@ -82,5 +82,8 @@ describe('auth interceptor', () => {
       status: 401,
       statusText: 'Unauthorized',
     });
+
+    const httpRequest2 = httpTestingController.expectOne('/some-endpoint');
+    httpRequest2.flush('Hello World');
   });
 });
