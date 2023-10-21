@@ -83,7 +83,10 @@ describe('auth interceptor', () => {
 
     flush();
 
-    const req2 = httpTestingController.match(req => req.url === '/some-endpoint' && req.headers.get('Authorization') == VALID_TOKEN);
+    const req2 = httpTestingController.match(req => {
+      console.log(req.url, req.headers.getAll('Authorization'));
+      return req.url === '/some-endpoint' && req.headers.get('Authorization') == `Bearer ${VALID_TOKEN}`
+    });
     req2[0].flush('Hello World');
 
     httpTestingController.verify();
